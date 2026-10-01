@@ -1,0 +1,2570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://upliftorch.com/tools/mp3-cutter/en/">
+<link rel="alternate" hreflang="zh-TW" href="https://upliftorch.com/tools/mp3-cutter/">
+<link rel="alternate" hreflang="en" href="https://upliftorch.com/tools/mp3-cutter/en/">
+<link rel="alternate" hreflang="x-default" href="https://upliftorch.com/tools/mp3-cutter/en/">
+<title>Online MP3 Cutter & Audio Trimmer – Free, No Upload</title>
+<meta name="description" content="Cut, trim, merge and fade MP3, WAV, M4A and video audio in your browser. No upload, signup or watermark. Export MP3, WAV or M4R for free.">
+<meta name="keywords" content="MP3 cutter,MP3 trimmer,audio editor,audio merger,music cutter,online MP3 editor,free audio tool">
+<meta property="og:title" content="Online MP3 Cutter and Audio Trimmer – Free, No Upload">
+<meta property="og:description" content="Cut, trim, merge and fade MP3, WAV, M4A and video audio in your browser. No upload, signup or watermark.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://upliftorch.com/tools/mp3-cutter/en/">
+<meta property="og:image" content="https://upliftorch.com/images/og/og-tools.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Online MP3 Cutter and Audio Trimmer – Free, No Upload">
+<meta name="twitter:description" content="Cut, trim, merge and fade MP3, WAV, M4A and video audio in your browser. No upload, signup or watermark.">
+<meta name="twitter:image" content="https://upliftorch.com/images/og/og-tools.png">
+
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: #f5f7fb;
+  color: #333;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.container {
+  max-width: 960px;
+  width: 100%;
+  margin: 0;
+  padding: 24px 20px;
+}
+
+.page-layout {
+  display: grid;
+  grid-template-columns: minmax(156px, 180px) minmax(0, 960px) minmax(156px, 180px);
+  justify-content: center;
+  gap: 24px;
+  max-width: 1368px;
+  margin: 0 auto;
+}
+
+@media (max-width: 1319px) {
+  .page-layout {
+    display: block;
+    max-width: none;
+  }
+
+  .container {
+    margin: 0 auto;
+  }
+}
+.breadcrumb{font-size:13px;color:var(--text-secondary,#64748b);margin-bottom:20px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.breadcrumb a{color:var(--text-secondary,#64748b)}
+.breadcrumb a:hover{color:var(--primary,#ec4899)}
+.breadcrumb .sep{opacity:.5}
+.breadcrumb [aria-current]{color:var(--text,#1e293b);font-weight:600}
+
+h1 {
+  text-align: center;
+  font-size: 28px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #6366f1, #a855f7, #ec4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  text-align: center;
+  color: #777;
+  font-size: 14px;
+  margin-bottom: 32px;
+}
+
+/* Upload Area */
+.upload-area {
+  border: 2px dashed #c5cad6;
+  border-radius: 16px;
+  padding: 48px 24px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s;
+  background: #ffffff;
+  position: relative;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+
+.upload-area:hover, .upload-area.dragover {
+  border-color: #6366f1;
+  background: #fafaff;
+}
+
+.upload-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  display: block;
+}
+
+.upload-text { font-size: 16px; color: #777; }
+.upload-hint { font-size: 13px; color: #999; margin-top: 8px; }
+
+.upload-area input[type="file"] {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* File Info */
+.file-info {
+  display: none;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-top: 16px;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  border: 1px solid #e8eaf0;
+}
+
+.file-info.show { display: flex; }
+
+.file-icon { font-size: 28px; }
+
+.file-details { flex: 1; }
+.file-name { font-weight: 600; font-size: 15px; }
+.file-meta { font-size: 13px; color: #777; margin-top: 2px; }
+
+.btn-remove {
+  background: none;
+  border: none;
+  color: #999;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+.btn-remove:hover { color: #ef4444; background: rgba(239,68,68,0.1); }
+
+/* Waveform */
+.waveform-section {
+  display: none;
+  margin-top: 24px;
+}
+
+.waveform-section.show { display: block; }
+
+.waveform-container {
+  position: relative;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  border: 1px solid #e8eaf0;
+}
+
+.waveform-wrapper {
+  position: relative;
+  height: 160px;
+  cursor: crosshair;
+  touch-action: none;
+  user-select: none;
+}
+
+canvas#waveform {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border-radius: 8px;
+}
+
+/* Selection overlay */
+.selection-overlay {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  background: rgba(99, 102, 241, 0.12);
+  border-left: 2px solid #6366f1;
+  border-right: 2px solid #6366f1;
+  pointer-events: none;
+  display: none;
+}
+
+.selection-overlay.show { display: block; }
+
+/* Playhead */
+.playhead {
+  position: absolute;
+  top: 0;
+  width: 2px;
+  height: 100%;
+  background: #ef4444;
+  pointer-events: none;
+  display: none;
+  z-index: 5;
+}
+
+.playhead.show { display: block; }
+
+/* Handle */
+.handle {
+  position: absolute;
+  top: 0;
+  width: 12px;
+  height: 100%;
+  cursor: ew-resize;
+  z-index: 10;
+  display: none;
+}
+
+.handle.show { display: block; }
+
+.handle::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 4px;
+  height: 32px;
+  background: #6366f1;
+  border-radius: 2px;
+}
+
+.handle-start { left: 0; }
+.handle-end { right: 0; }
+
+/* Time Display */
+.time-display {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+  padding: 0 4px;
+}
+
+.time-label {
+  font-size: 12px;
+  color: #777;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Controls */
+.controls {
+  display: none;
+  margin-top: 24px;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  border: 1px solid #e8eaf0;
+}
+
+.controls.show { display: block; }
+
+.control-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.time-input-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 200px;
+}
+
+.time-input-group label {
+  font-size: 13px;
+  color: #777;
+  white-space: nowrap;
+  min-width: 50px;
+}
+
+.time-input {
+  background: #f0f2f7;
+  border: 1px solid #e0e4ec;
+  border-radius: 8px;
+  color: #333;
+  padding: 8px 12px;
+  font-size: 14px;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  width: 110px;
+  text-align: center;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.time-input:focus { border-color: #6366f1; }
+
+.duration-badge {
+  background: rgba(99,102,241,0.15);
+  color: #6366f1;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* Buttons */
+.btn-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn-play {
+  background: #f0f2f7;
+  color: #333;
+  border: 1px solid #e0e4ec;
+}
+.btn-play:hover:not(:disabled) { background: #eef0f5; border-color: #ccc; }
+
+.btn-primary {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: #fff;
+}
+.btn-primary:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(99,102,241,0.3); }
+
+.btn-danger {
+  background: rgba(239,68,68,0.1);
+  color: #f87171;
+  border: 1px solid rgba(239,68,68,0.2);
+}
+.btn-danger:hover:not(:disabled) { background: rgba(239,68,68,0.2); }
+
+/* Progress */
+.progress-bar {
+  display: none;
+  margin-top: 16px;
+  background: #f0f2f7;
+  border-radius: 8px;
+  height: 6px;
+  overflow: hidden;
+}
+
+.progress-bar.show { display: block; }
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #6366f1, #a855f7);
+  border-radius: 8px;
+  width: 0%;
+  transition: width 0.3s;
+}
+
+.status-text {
+  display: none;
+  margin-top: 8px;
+  font-size: 13px;
+  color: #777;
+  text-align: center;
+}
+
+.status-text.show { display: block; }
+
+/* Zoom controls */
+.zoom-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  justify-content: center;
+}
+
+.zoom-btn {
+  background: #f0f2f7;
+  border: 1px solid #e0e4ec;
+  color: #333;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.zoom-btn:hover { background: #eef0f5; border-color: #ccc; }
+
+.zoom-level {
+  font-size: 12px;
+  color: #777;
+  min-width: 40px;
+  text-align: center;
+}
+
+/* Hover cursor */
+.hover-cursor {
+  position: absolute;
+  top: 0;
+  width: 1px;
+  height: 100%;
+  background: rgba(0,0,0,0.2);
+  pointer-events: none;
+  display: none;
+  z-index: 4;
+}
+
+.hover-cursor.show { display: block; }
+
+/* Time tooltip */
+.time-tooltip {
+  position: absolute;
+  top: -30px;
+  transform: translateX(-50%);
+  background: #fff;
+  color: #333;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  white-space: nowrap;
+  pointer-events: none;
+  display: none;
+  z-index: 20;
+  border: 1px solid #ddd;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+
+.time-tooltip.show { display: block; }
+
+/* Selection hint text */
+.selection-hint {
+  text-align: center;
+  font-size: 12px;
+  color: #999;
+  margin-top: 8px;
+  transition: opacity 0.3s;
+}
+
+/* Keyboard shortcuts hint */
+.shortcuts {
+  margin-top: 32px;
+  text-align: center;
+  font-size: 12px;
+  color: #aaa;
+}
+
+.shortcuts kbd {
+  background: #f0f2f7;
+  border: 1px solid #d0d4dc;
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-family: inherit;
+  font-size: 11px;
+  color: #777;
+}
+
+/* Scrollbar for waveform */
+.waveform-scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.waveform-scroll::-webkit-scrollbar { height: 6px; }
+.waveform-scroll::-webkit-scrollbar-track { background: transparent; }
+.waveform-scroll::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
+.waveform-scroll::-webkit-scrollbar-thumb:hover { background: #aaa; }
+
+/* Segment buttons */
+.btn-segment {
+  background: rgba(34,197,94,0.12);
+  color: #16a34a;
+  border: 1px solid rgba(34,197,94,0.25);
+}
+.btn-segment:hover:not(:disabled) { background: rgba(34,197,94,0.22); }
+
+/* Segments section */
+.segments-section {
+  display: none;
+  margin-top: 16px;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 16px 20px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  border: 1px solid #e8eaf0;
+}
+.segments-section.show { display: block; }
+
+.segments-section h3 {
+  font-size: 14px;
+  color: #777;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.segment-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.segment-item {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+  background: #f8f9fc;
+  border: 1px solid #e8eaf0;
+  border-radius: 8px;
+  padding: 8px 12px;
+  cursor: grab;
+  transition: background 0.15s, border-color 0.15s, opacity 0.15s, transform 0.15s;
+  user-select: none;
+}
+
+.segment-main { display: flex; align-items: center; gap: 10px; width: 100%; }
+.segment-effects { display: flex; align-items: center; gap: 8px; padding: 7px 0 0 38px; border-top: 1px solid #e8eaf0; }
+.segment-fade-control { display: inline-flex; align-items: center; gap: 0; min-height: 30px; padding: 4px 2px; color: #666; font-size: 12px; cursor: pointer; }
+.segment-fade-control.is-active { gap: 6px; color: #5b52d6; }
+.segment-fade-control input[type="checkbox"] { accent-color: #6366f1; }
+.segment-fade-toggle { display: inline-flex; align-items: center; gap: 5px; cursor: pointer; }
+.segment-fade-settings { display: inline-flex; align-items: center; gap: 6px; max-width: 0; overflow: hidden; opacity: 0; transform: translateX(-10px) scale(.96); white-space: nowrap; pointer-events: none; transition: max-width 280ms ease-out,opacity 240ms ease-out,transform 280ms ease-out; }
+.segment-fade-control.is-active .segment-fade-settings { max-width: 96px; opacity: 1; transform: translateX(0) scale(1); pointer-events: auto; }
+.segment-fade-duration { width: 48px; padding: 3px 5px; background: #fff; border: 1px solid #d8dce6; border-radius: 6px; color: #444; font: 12px 'SF Mono','Fira Code',monospace; text-align: center; }
+.segment-fade-duration:disabled { color: #aaa; background: #e8eaf0; cursor: not-allowed; }
+
+.segment-item:hover { border-color: #16a34a; }
+.segment-item.dragging { opacity: 0.4; }
+.segment-item.drag-over { border-color: #6366f1; background: #eef0f5; transform: translateY(-1px); }
+
+.segment-number {
+  background: rgba(34,197,94,0.15);
+  color: #16a34a;
+  font-size: 12px;
+  font-weight: 700;
+  min-width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.segment-times {
+  flex: 1;
+  font-size: 13px;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  color: #555;
+}
+
+.segment-duration {
+  font-size: 12px;
+  color: #777;
+  white-space: nowrap;
+}
+
+.segment-actions {
+  display: flex;
+  gap: 4px;
+}
+
+.segment-actions button {
+  background: none;
+  border: 1px solid #e0e4ec;
+  color: #777;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+
+.segment-actions button:hover { border-color: #ccc; color: #333; background: #eef0f5; }
+.segment-actions button.seg-delete:hover { border-color: #ef4444; color: #f87171; background: rgba(239,68,68,0.1); }
+
+.segments-total {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #e8eaf0;
+  font-size: 13px;
+  color: #777;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.segments-total .total-label { color: #777; }
+.segments-total .total-value {
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  color: #16a34a;
+  font-weight: 600;
+}
+
+/* Content Sections */
+.content-section {
+  margin-top: 48px;
+  padding: 0 4px;
+}
+
+.content-section h2 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.feature-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px 16px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  border: 1px solid #e8eaf0;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.feature-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+}
+
+.feature-icon {
+  font-size: 32px;
+  margin-bottom: 12px;
+}
+
+.feature-card h3 {
+  font-size: 15px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.feature-card p {
+  font-size: 13px;
+  color: #666;
+  line-height: 1.6;
+}
+
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.step {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  border: 1px solid #e8eaf0;
+}
+
+.step-number {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6366f1, #a855f7);
+  color: #fff;
+  font-weight: 700;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.step-content h3 {
+  font-size: 15px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.step-content p {
+  font-size: 13px;
+  color: #666;
+  line-height: 1.6;
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.faq-item {
+  background: #fff;
+  border-radius: 10px;
+  border: 1px solid #e8eaf0;
+  overflow: hidden;
+}
+
+.faq-item summary {
+  padding: 14px 18px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  color: #333;
+  list-style: none;
+}
+
+.faq-item summary::-webkit-details-marker { display: none; }
+
+.faq-item summary::before {
+  content: '\25B8';
+  margin-right: 8px;
+  color: #6366f1;
+  transition: transform 0.2s;
+  display: inline-block;
+}
+
+.faq-item[open] summary::before {
+  transform: rotate(90deg);
+}
+
+.faq-item p {
+  padding: 0 18px 14px;
+  font-size: 13px;
+  color: #666;
+  line-height: 1.7;
+}
+
+.article-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.article-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  border: 1px solid #e8eaf0;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.article-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+}
+
+.article-card h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #6366f1;
+  margin-bottom: 6px;
+}
+
+.article-card p {
+  font-size: 12px;
+  color: #888;
+  line-height: 1.5;
+}
+
+.article-card-more {
+  background: #fafaff;
+  border-style: dashed;
+}
+
+.trust-chips{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin:12px 0 22px}.trust-chip{padding:6px 11px;color:#4f46e5;background:#eef0ff;border:1px solid #d9dcff;border-radius:999px;font-size:12px;font-weight:600}.processing-proof{margin:22px 0 8px;padding:18px 20px;background:#fff;border:1px solid #dfe3ee;border-radius:12px;text-align:center}.processing-proof strong{display:block;margin-bottom:6px;color:#333;font-size:15px}.processing-proof p{color:#666;font-size:13px;line-height:1.7}.processing-proof a{color:#6366f1;font-weight:600}
+
+.footer-nav {
+  margin-bottom: 4px;
+}
+
+.footer-nav a {
+  color: #888;
+  text-decoration: none;
+  font-size: 13px;
+}
+
+.footer-nav a:hover {
+  color: #6366f1;
+}
+
+@media (max-width: 767px) {
+  .feature-grid {
+    grid-template-columns: 1fr;
+  }
+  .article-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .article-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 24px 0 16px;
+  font-size: 12px;
+  color: #aaa;
+  border-top: 1px solid #e0e4ec;
+  margin-top: 32px;
+}
+
+.footer a {
+  color: #6366f1;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+  .container { padding: 16px 12px; }
+  h1 { font-size: 22px; }
+  .control-row { flex-direction: column; align-items: stretch; }
+  .time-input-group { min-width: unset; }
+  .btn-row { flex-direction: column; }
+  .btn { justify-content: center; }
+  .segment-item { flex-wrap: wrap; }
+  .segment-main { flex-wrap: wrap; }
+  .segment-effects { flex-wrap: wrap; padding-left: 0; }
+}
+
+.audio-effects { margin: 18px 0; padding: 0; }
+.effects-note { margin: 0; font-size: 12px; line-height: 1.5; color: #74798a; }
+.effects-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
+.effect-card { display: grid; grid-template-columns: auto minmax(0,1fr) auto; align-items: center; gap: 12px; min-height: 58px; padding: 10px 14px; background: #f1f2f7; border: 1px solid #d9dde8; border-radius: 12px; transition: border-color 180ms ease,background 180ms ease,transform 150ms ease; }
+.effect-card.is-active { background: #eeedff; border-color: #8b7cf6; }
+.effect-card:hover { border-color: #b8bdcb; }
+.effect-card.is-active:hover { border-color: #7164e8; }
+.effect-switch { position: relative; display: inline-flex; cursor: pointer; }
+.effect-switch input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.effect-switch-track { position: relative; width: 38px; height: 22px; background: #c9cedb; border-radius: 999px; transition: background 180ms ease; }
+.effect-switch-track::after { content: ''; position: absolute; top: 3px; left: 3px; width: 16px; height: 16px; background: #fff; border-radius: 50%; box-shadow: 0 1px 3px rgba(15,23,42,.22); transition: transform 180ms ease; }
+.effect-switch input:checked + .effect-switch-track { background: #6366f1; }
+.effect-switch input:checked + .effect-switch-track::after { transform: translateX(16px); }
+.effect-switch input:focus-visible + .effect-switch-track { outline: 3px solid rgba(99,102,241,.25); outline-offset: 2px; }
+.effect-copy strong { display: block; margin-bottom: 2px; font-size: 14px; color: #303444; }
+.effect-copy span { display: block; font-size: 12px; color: #858a99; }
+.effect-duration { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #73788a; }
+.effect-duration .time-input { width: 68px; min-width: 68px; padding: 8px 9px; text-align: center; font-size: 14px; font-variant-numeric: tabular-nums; }
+.effect-duration .time-input:disabled { color: #a6abba; background: #eef0f5; cursor: not-allowed; }
+.effects-note { margin-top: 8px; }
+@media (max-width: 600px) { .effects-grid { grid-template-columns: 1fr; } .effect-card { grid-template-columns: auto minmax(0,1fr); } .effect-duration { grid-column: 2; justify-self: start; } }
+@media (prefers-reduced-motion: reduce) { .effect-card,.effect-switch-track,.effect-switch-track::after,.segment-fade-settings { transition: none; } }
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://upliftorch.com/"},{"@type":"ListItem","position":2,"name":"Free Online Tools","item":"https://upliftorch.com/tools-en"},{"@type":"ListItem","position":3,"name":"MP3 Cutter","item":"https://upliftorch.com/tools/mp3-cutter/en/"}]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"MP3 Cutter and Audio Trimmer","alternateName":["Free Online MP3 Editor","MP3 Trimmer"],"description":"Free online MP3 cutter that keeps files on your device. Cut and merge segments, add fades, extract video audio, and export MP3, WAV, or iPhone M4R.","url":"https://upliftorch.com/tools/mp3-cutter/en/","applicationCategory":"MultimediaApplication","operatingSystem":"Any","browserRequirements":"Requires a modern web browser with Web Audio API support","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"featureList":["Local browser processing without media uploads","Waveform cutting and preview","Multi-segment reorder and merge","Per-segment fade in and fade out","Local video audio extraction","MP3, WAV, and M4R export"]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is the MP3 Cutter free to use?","acceptedAnswer":{"@type":"Answer","text":"Yes. It requires no account and has no usage limit. Multi-segment merging, fades, video audio extraction, and MP3, WAV, or M4R export are free."}},{"@type":"Question","name":"Will my audio or video be uploaded?","acceptedAnswer":{"@type":"Answer","text":"No. Media content is decoded, edited, and exported in your browser and is not sent to our servers. The site may load CDN and necessary website services; see the Privacy Policy for details."}},{"@type":"Question","name":"What formats are supported?","acceptedAnswer":{"@type":"Answer","text":"You can import common audio and video formats that the browser or local processor can decode, then export MP3, WAV, or an iPhone M4R ringtone."}},{"@type":"Question","name":"Can I use it on my phone?","acceptedAnswer":{"@type":"Answer","text":"Yes. It supports mobile browsers including iOS Safari and Android Chrome. Large-file capacity depends on the device's available memory."}}]}
+</script>
+</head>
+<body>
+
+<div class="page-layout">
+
+
+<div class="container">
+
+  <nav class="breadcrumb" aria-label="breadcrumb">
+    <a href="https://upliftorch.com/">Home</a>
+    <span class="sep">›</span>
+    <a href="https://upliftorch.com/tools-en">Free Online Tools</a>
+    <span class="sep">›</span>
+    <span aria-current="page">MP3 Cutter</span>
+  </nav>
+  <h1>Online MP3 Cutter &amp; Audio Trimmer</h1>
+  <p class="subtitle">Cut, trim, merge and fade MP3, WAV, M4A and video audio in your browser. No upload, signup or watermark.</p>
+
+  <!-- Upload -->
+  <div class="upload-area" id="uploadArea">
+    <input type="file" id="fileInput" accept="https://storage.googleapis.com/upliftorch_tool/mp3-cutter/audio/*,video/*">
+    <span class="upload-icon">🎵</span>
+    <div class="upload-text">Click or drag an audio file here</div>
+    <div class="upload-hint">Supports audio and video files; video audio is extracted locally</div>
+  </div>
+
+  <div class="trust-chips" aria-label="Tool benefits"><span class="trust-chip">🔒 No file uploads</span><span class="trust-chip">✓ No account</span><span class="trust-chip">✓ Completely free</span></div>
+
+  <!-- File Info -->
+  <div class="file-info" id="fileInfo">
+    <span class="file-icon">🎶</span>
+    <div class="file-details">
+      <div class="file-name" id="fileName"></div>
+      <div class="file-meta" id="fileMeta"></div>
+    </div>
+    <button class="btn-remove" id="btnRemove" title="Remove file">✕</button>
+  </div>
+
+  <!-- Waveform -->
+  <div class="waveform-section" id="waveformSection">
+    <div class="waveform-container">
+      <div class="waveform-scroll" id="waveformScroll">
+        <div class="waveform-wrapper" id="waveformWrapper">
+          <canvas id="waveform"></canvas>
+          <div class="selection-overlay" id="selectionOverlay"></div>
+          <div class="playhead" id="playhead"></div>
+          <div class="handle handle-start" id="handleStart"></div>
+          <div class="handle handle-end" id="handleEnd"></div>
+          <div class="hover-cursor" id="hoverCursor"></div>
+          <div class="time-tooltip" id="timeTooltip"></div>
+        </div>
+      </div>
+      <div class="time-display">
+        <span class="time-label" id="timeStart">00:00.000</span>
+        <span class="time-label" id="timeCurrent"></span>
+        <span class="time-label" id="timeEnd">00:00.000</span>
+      </div>
+    </div>
+
+    <div class="zoom-controls">
+      <button class="zoom-btn" id="zoomOut" title="Zoom out">−</button>
+      <span class="zoom-level" id="zoomLevel">1x</span>
+      <button class="zoom-btn" id="zoomIn" title="Zoom in">+</button>
+      <button class="zoom-btn" id="zoomFit" title="Fit to width" style="font-size:12px;">⊡</button>
+    </div>
+    <div class="selection-hint" id="selectionHint">Click and drag on the waveform to select a segment. Drag the edge handles to fine-tune the range.</div>
+
+    <!-- Segments List -->
+    <div class="segments-section" id="segmentsSection">
+      <h3>Segment List</h3>
+      <div class="segment-list" id="segmentList"></div>
+      <div class="segments-total">
+        <span class="total-label">Total merged duration</span>
+        <span class="total-value" id="segmentsTotal">00:00.000</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Controls -->
+  <div class="controls" id="controls">
+    <div class="control-row">
+      <div class="time-input-group">
+        <label>Start</label>
+        <input type="text" class="time-input" id="inputStart" value="00:00.000" placeholder="00:00.000">
+      </div>
+      <div class="time-input-group">
+        <label>End</label>
+        <input type="text" class="time-input" id="inputEnd" value="00:00.000" placeholder="00:00.000">
+      </div>
+      <div class="duration-badge" id="durationBadge">Duration: 00:00.000</div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-play" id="btnPlayFull" disabled>▶ Play All</button>
+      <button class="btn btn-play" id="btnPlaySelection" disabled>▶ Preview Selection</button>
+      <button class="btn btn-play" id="btnStop" disabled>⏹ Stop</button>
+      <button class="btn btn-danger" id="btnReset" disabled>↺ Reset Selection</button>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-segment" id="btnAddSegment" disabled>＋ Add Segment</button>
+      <button class="btn btn-segment" id="btnPreviewAll" disabled>▶ Preview Merged</button>
+    </div>
+
+    <section class="audio-effects" aria-label="Fade settings">
+      <div class="effects-grid">
+        <div class="effect-card" id="fadeInCard"><label class="effect-switch" for="fadeInEnabled"><input type="checkbox" id="fadeInEnabled"><span class="effect-switch-track" aria-hidden="true"></span></label><label class="effect-copy" for="fadeInEnabled"><strong>Fade in</strong><span>Rise gradually from silence to full volume</span></label><label class="effect-duration" for="fadeInDuration"><input type="number" class="time-input" id="fadeInDuration" min="0.1" max="10" step="0.1" value="1" disabled><span>sec</span></label></div>
+        <div class="effect-card" id="fadeOutCard"><label class="effect-switch" for="fadeOutEnabled"><input type="checkbox" id="fadeOutEnabled"><span class="effect-switch-track" aria-hidden="true"></span></label><label class="effect-copy" for="fadeOutEnabled"><strong>Fade out</strong><span>Fall gradually from full volume to silence</span></label><label class="effect-duration" for="fadeOutDuration"><input type="number" class="time-input" id="fadeOutDuration" min="0.1" max="10" step="0.1" value="1" disabled><span>sec</span></label></div>
+      </div>
+      <p class="effects-note">These settings apply to Preview Selection and become the defaults for new segments. Each added segment can then be adjusted independently.</p>
+    </section>
+
+    <div class="btn-row">
+      <button class="btn btn-primary" id="btnExport" disabled>⬇ Export MP3</button>
+      <button class="btn btn-primary" id="btnExportWav" disabled style="background:linear-gradient(135deg,#0ea5e9,#6366f1);">⬇ Export WAV</button>
+      <button class="btn btn-primary" id="btnExportM4r" disabled>⬇ Export iPhone Ringtone (M4R)</button>
+    </div>
+
+    <div class="progress-bar" id="progressBar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+    <div class="status-text" id="statusText"></div>
+  </div>
+
+  <div class="shortcuts">
+    <kbd>Space</kbd> Play/Pause &nbsp; <kbd>S</kbd> Preview Selection &nbsp; <kbd>A</kbd> Add Segment &nbsp; <kbd>R</kbd> Reset<br style="margin-bottom:4px;">
+    Drag on waveform to select &nbsp; Drag edges to fine-tune &nbsp; Drag middle to move selection
+  </div>
+
+  <section class="processing-proof" aria-label="Local processing explanation"><strong>Choose a file → Browser decoding → Local editing → Direct download</strong><p>Your audio and video content is not sent to our servers. <a href="https://upliftorch.com/tools/mp3-cutter/en/about.html#local-processing">See the technical explanation and verify it yourself</a></p></section>
+
+  <!-- MP3 Cutter Responsive -->
+  
+  <script>
+    
+  </script>
+
+  <!-- Features Section -->
+  <section class="content-section" id="features">
+    <h2>Features</h2>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <svg class="feature-icon" width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin-left:auto;margin-right:auto;color:var(--primary,var(--primary-color,#0f86b5))"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1"/></svg>
+        <h3>Precise Waveform Editing</h3>
+        <p>Visual waveform display with drag-to-select and handle fine-tuning, accurate to the millisecond. Zoom up to 20x to ensure every cut point is exactly right.</p>
+      </div>
+      <div class="feature-card">
+        <svg class="feature-icon" width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin-left:auto;margin-right:auto;color:var(--primary,var(--primary-color,#0f86b5))"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3M12 14v2"/></svg>
+        <h3>Media Stays on Your Device</h3>
+        <p>Audio and video content is decoded, edited, and exported locally in your browser instead of being sent to our servers.</p>
+      </div>
+      <div class="feature-card">
+        <svg class="feature-icon" width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin-left:auto;margin-right:auto;color:var(--primary,var(--primary-color,#0f86b5))"><path d="M9 18V6l10-2v12"/><circle cx="6" cy="18" r="3"/><circle cx="16" cy="16" r="3"/></svg>
+        <h3>Audio and Video Input</h3>
+        <p>Open common audio files or extract the audio track locally from MP4, MOV, WebM, and other video formats.</p>
+      </div>
+      <div class="feature-card">
+        <svg class="feature-icon" width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin-left:auto;margin-right:auto;color:var(--primary,var(--primary-color,#0f86b5))"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4.5V3h6v1.5M8 9h8M8 13h8M8 17h5"/></svg>
+        <h3>Multi-Segment Merge</h3>
+        <p>More than just cutting! Select multiple segments, reorder them freely, and merge for export. Perfect for ringtones, podcast editing, music mashups, and more.</p>
+      </div>
+      <div class="feature-card">
+        <svg class="feature-icon" width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin-left:auto;margin-right:auto;color:var(--primary,var(--primary-color,#0f86b5))"><rect x="2" y="6" width="20" height="13" rx="2"/><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M6 14h.01M10 14h.01M14 14h4M6 17h8"/></svg>
+        <h3>Independent Fades per Segment</h3>
+        <p>Give every segment its own fade in, fade out, and duration to smooth beginnings, endings, and edit points.</p>
+      </div>
+      <div class="feature-card">
+        <svg class="feature-icon" width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin-left:auto;margin-right:auto;color:var(--primary,var(--primary-color,#0f86b5))"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M10 5h4M11 18.5h2"/></svg>
+        <h3>MP3, WAV, and M4R Export</h3>
+        <p>Download 192kbps MP3, 16-bit PCM WAV, or create an M4R ringtone for iPhone directly.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- How to Use -->
+  <section class="content-section" id="how-to-use">
+    <h2>How to Use the MP3 Cutter</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-content">
+          <h3>Upload an Audio File</h3>
+          <p>Click the upload area or drop an audio or video file. The browser reads it locally instead of uploading it first.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-content">
+          <h3>Select the Segment to Trim</h3>
+          <p>Click and drag on the waveform to select a segment. Drag the left and right edge handles to fine-tune the start and end times, or enter precise time values directly.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-content">
+          <h3>Preview and Add Segments</h3>
+          <p>Click "Preview Selection" to confirm the result. For multi-segment merging, click "Add Segment" to collect multiple sections with drag-to-reorder support.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-number">4</div>
+        <div class="step-content">
+          <h3>Export and Download</h3>
+          <p>Choose MP3, WAV, or iPhone M4R. The browser downloads the exported file directly to your device.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="content-section" id="faq">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary>Is the MP3 Cutter free to use?</summary>
+        <p>Yes. It requires no account and has no usage limit. Multi-segment merging, fades, video audio extraction, and MP3, WAV, or M4R export are free.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Will my audio files be uploaded to a server?</summary>
+        <p>No. Media content is decoded, edited, and exported in your browser and is not sent to our servers. The site may load CDN and necessary website services; see the <a href="https://upliftorch.com/tools/mp3-cutter/en/privacy.html">Privacy Policy</a>.</p>
+      </details>
+      <details class="faq-item">
+        <summary>What audio formats are supported?</summary>
+        <p>Import common audio and video formats that the browser or local processor can decode. Export MP3 (192kbps), WAV (16-bit PCM), or iPhone M4R.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Is there a file size limit?</summary>
+        <p>There is no fixed file size limit. However, since processing is done in the browser, very large files (e.g., over 500MB) may cause memory issues. We recommend using a modern browser and device for the best experience.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Can I use it on my phone?</summary>
+        <p>Yes. The MP3 Cutter features responsive design and supports iOS Safari, Android Chrome, and other mobile browsers. However, due to smaller screens, we recommend using landscape mode for waveform selection on mobile.</p>
+      </details>
+      <details class="faq-item">
+        <summary>How do I make a phone ringtone?</summary>
+        <p>Select a clip up to 30 seconds, add fades, and export M4R directly. Adding the custom ringtone to iOS still follows Apple's supported Files or GarageBand workflow.</p>
+      </details>
+      <details class="faq-item">
+        <summary>What is the quality of the exported MP3?</summary>
+        <p>MP3 export uses the LAME encoder at a constant 192kbps and performs another lossy encode. Export WAV to avoid adding another lossy encode; WAV cannot restore information already discarded by the source file.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- Related Guides -->
+  <section class="content-section" id="guides">
+    <h2>Audio Editing Guides</h2>
+    <div class="article-grid">
+      <a href="https://upliftorch.com/tools/mp3-cutter/en/blog/best-online-mp3-cutters-privacy-test.html" class="article-card">
+        <h3>Online MP3 Cutter Privacy Test</h3>
+        <p>Compare local processing, uploads, formats, limits, and editing features across four popular browser tools.</p>
+      </a>
+      <a href="https://upliftorch.com/tools/mp3-cutter/en/blog/how-to-cut-mp3.html" class="article-card">
+        <h3>Complete MP3 Editing Guide</h3>
+        <p>From upload to export, a step-by-step guide to mastering all MP3 audio editing techniques.</p>
+      </a>
+      <a href="https://upliftorch.com/tools/mp3-cutter/en/blog/make-ringtone.html" class="article-card">
+        <h3>How to Make a Phone Ringtone</h3>
+        <p>A complete guide to creating iPhone and Android ringtones using the MP3 Cutter.</p>
+      </a>
+      <a href="https://upliftorch.com/tools/mp3-cutter/en/blog/audio-formats-guide.html" class="article-card">
+        <h3>Audio Format Comparison</h3>
+        <p>What's the difference between MP3, WAV, OGG, FLAC, and AAC? Understand all audio formats at once.</p>
+      </a>
+      <a href="https://upliftorch.com/tools/mp3-cutter/en/blog/podcast-editing-tips.html" class="article-card">
+        <h3>Podcast Audio Editing Tips</h3>
+        <p>How to trim mistakes and silent sections to make your podcast sound more professional.</p>
+      </a>
+      <a href="https://upliftorch.com/tools/mp3-cutter/en/blog/index.html" class="article-card article-card-more">
+        <h3>View All Articles →</h3>
+        <p>More audio editing tips and tutorial articles.</p>
+      </a>
+    </div>
+  </section>
+
+  <div class="footer">
+    <nav class="footer-nav">
+      <a href="index.html">Home</a> ·
+      <a href="https://upliftorch.com/tools/mp3-cutter/en/blog/index.html">Guides</a> ·
+      <a href="https://upliftorch.com/tools/mp3-cutter/en/about.html">About</a> ·
+      <a href="https://upliftorch.com/tools/mp3-cutter/en/contact.html">Contact</a> ·
+      <a href="https://upliftorch.com/tools/mp3-cutter/en/privacy.html">Privacy Policy</a> ·
+      <a href="https://upliftorch.com/tools/mp3-cutter/en/about.html#local-processing">How Processing Works</a> ·
+      <a href="https://upliftorch.com/tools/mp3-cutter/en/terms.html">Terms of Service</a>
+    </nav>
+    <p style="margin-top:8px;">MP3 Cutter — All processing is done in your browser. No files are ever uploaded.</p>
+    <p style="margin-top:4px; font-size:12px; color:#999;">&copy; <span class="current-year"></span> Upliftorch. All rights reserved.</p>
+    <p style="margin-top:8px;font-size:13px;"><span style="color:#999;">Other Tools: </span><a href="https://upliftorch.com/tools/create-ico/en/">ICO Generator</a> · <a href="https://upliftorch.com/tools/convert-to-webp/en/">WebP Converter</a> · <a href="https://upliftorch.com/tools/url-codec/en/">URL Codec</a></p>
+  </div>
+</div>
+
+<script>document.querySelectorAll('.current-year').forEach(year => { year.textContent = new Date().getFullYear(); });</script>
+
+
+</div>
+
+<script>
+
+</script>
+
+<script>
+(() => {
+  // State
+  let audioContext = null;
+  let audioBuffer = null;
+  let sourceNode = null;
+  let rawFile = null;
+  let selStart = 0;
+  let selEnd = 0;
+  let isPlaying = false;
+  let playStartTime = 0;
+  let playOffset = 0;
+  let playEnd = 0;
+  let animFrame = null;
+  let zoom = 1;
+  let isDragging = null; // 'start', 'end', 'selection', 'new'
+  let dragStartX = 0;
+  let dragSelStartOrig = 0;
+  let dragSelEndOrig = 0;
+  let waveformData = null;
+  let segments = [];
+  let segIdCounter = 0;
+  let ffmpeg = null;
+  let ffmpegLoadPromise = null;
+  let lameLoadPromise = null;
+
+  // Elements
+  const $ = id => document.getElementById(id);
+  const uploadArea = $('uploadArea');
+  const fileInput = $('fileInput');
+  const fileInfo = $('fileInfo');
+  const fileName = $('fileName');
+  const fileMeta = $('fileMeta');
+  const btnRemove = $('btnRemove');
+  const waveformSection = $('waveformSection');
+  const waveformWrapper = $('waveformWrapper');
+  const waveformScroll = $('waveformScroll');
+  const canvas = $('waveform');
+  const ctx = canvas.getContext('2d');
+  const selectionOverlay = $('selectionOverlay');
+  const playhead = $('playhead');
+  const handleStart = $('handleStart');
+  const handleEnd = $('handleEnd');
+  const timeStartLabel = $('timeStart');
+  const timeCurrentLabel = $('timeCurrent');
+  const timeEndLabel = $('timeEnd');
+  const inputStart = $('inputStart');
+  const inputEnd = $('inputEnd');
+  const durationBadge = $('durationBadge');
+  const controls = $('controls');
+  const btnPlayFull = $('btnPlayFull');
+  const btnPlaySelection = $('btnPlaySelection');
+  const btnStop = $('btnStop');
+  const btnReset = $('btnReset');
+  const btnExport = $('btnExport');
+  const btnExportWav = $('btnExportWav');
+  const btnExportM4r = $('btnExportM4r');
+  const fadeInEnabled = $('fadeInEnabled');
+  const fadeInDuration = $('fadeInDuration');
+  const fadeOutEnabled = $('fadeOutEnabled');
+  const fadeOutDuration = $('fadeOutDuration');
+  const fadeInCard = $('fadeInCard');
+  const fadeOutCard = $('fadeOutCard');
+  const progressBar = $('progressBar');
+  const progressFill = $('progressFill');
+  const statusText = $('statusText');
+  const zoomIn = $('zoomIn');
+  const zoomOut = $('zoomOut');
+  const zoomFit = $('zoomFit');
+  const zoomLevel = $('zoomLevel');
+  const btnAddSegment = $('btnAddSegment');
+  const btnPreviewAll = $('btnPreviewAll');
+  const segmentsSection = $('segmentsSection');
+  const segmentList = $('segmentList');
+  const segmentsTotal = $('segmentsTotal');
+
+  
+
+  function syncFadeControls() {
+    fadeInDuration.disabled = !fadeInEnabled.checked;
+    fadeOutDuration.disabled = !fadeOutEnabled.checked;
+    fadeInCard.classList.toggle('is-active', fadeInEnabled.checked);
+    fadeOutCard.classList.toggle('is-active', fadeOutEnabled.checked);
+  }
+
+  fadeInEnabled.addEventListener('change', syncFadeControls);
+  fadeOutEnabled.addEventListener('change', syncFadeControls);
+  syncFadeControls();
+
+  // Utility: format time
+  function fmt(t) {
+    if (!isFinite(t) || t < 0) t = 0;
+    const m = Math.floor(t / 60);
+    const s = t - m * 60;
+    return String(m).padStart(2, '0') + ':' + s.toFixed(3).padStart(6, '0');
+  }
+
+  // Utility: parse time string
+  function parseTime(str) {
+    str = str.trim();
+    const parts = str.split(':');
+    if (parts.length === 2) {
+      return parseInt(parts[0]) * 60 + parseFloat(parts[1]);
+    }
+    return parseFloat(str) || 0;
+  }
+
+  // Utility: format file size
+  function fmtSize(bytes) {
+    if (bytes < 1024) return bytes + ' B';
+    if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+    return (bytes / 1048576).toFixed(1) + ' MB';
+  }
+
+  // Init AudioContext
+  function getAudioCtx() {
+    if (!audioContext) {
+      audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    return audioContext;
+  }
+
+  async function loadScript(src) {
+    await new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = src;
+      script.onload = resolve;
+      script.onerror = () => reject(new Error('The required local processing component could not be loaded'));
+      document.head.appendChild(script);
+    });
+  }
+
+  async function getLameJs() {
+    if (!window.lamejs) {
+      if (!lameLoadPromise) {
+        statusText.classList.add('show');
+        statusText.textContent = 'Loading the MP3 encoder for first use...';
+        lameLoadPromise = loadScript('https://cdn.jsdelivr.net/npm/lamejs@1.2.1/lame.min.js').catch(err => {
+          lameLoadPromise = null;
+          throw err;
+        });
+      }
+      await lameLoadPromise;
+    }
+    return window.lamejs;
+  }
+
+  async function getFFmpeg() {
+    if (!ffmpegLoadPromise) {
+      statusText.classList.add('show');
+      statusText.textContent = 'Loading the local processor for first-time video or M4R use...';
+      ffmpegLoadPromise = (async () => {
+        try {
+          const basePath = new URL('../vendor/ffmpeg/', document.baseURI);
+          if (!window.FFmpegWASM) await loadScript(new URL('ffmpeg.js', basePath).href);
+          const instance = new window.FFmpegWASM.FFmpeg();
+          await instance.load({
+            coreURL: new URL('ffmpeg-core.js', basePath).href,
+            wasmURL: new URL('ffmpeg-core.wasm', basePath).href
+          });
+          if (!instance.loaded) throw new Error('The local processor has not finished loading');
+          ffmpeg = instance;
+          return instance;
+        } catch (err) {
+          ffmpeg = null;
+          ffmpegLoadPromise = null;
+          throw err;
+        }
+      })();
+    }
+    return await ffmpegLoadPromise;
+  }
+
+  async function decodeFile(file) {
+    const bytes = new Uint8Array(await file.arrayBuffer());
+    if (file.type.startsWith('video/') || /\.(mp4|mov|m4v|webm|avi|mkv)$/i.test(file.name)) {
+      const engine = await getFFmpeg();
+      const inputName = 'input' + (file.name.match(/\.[^.]+$/)?.[0] || '.video');
+      await engine.writeFile(inputName, bytes);
+      const exitCode = await engine.exec(['-i', inputName, '-map', '0:a:0', '-vn', '-ac', '2', '-ar', '44100', '-c:a', 'pcm_s16le', '-f', 'wav', 'extracted.wav']);
+      if (exitCode !== 0) throw new Error('No readable audio track was found in the video');
+      const wav = await engine.readFile('extracted.wav');
+      if (!(wav instanceof Uint8Array) || wav.byteLength <= 44) throw new Error('The extracted audio track is invalid');
+      const wavBuffer = wav.slice().buffer;
+      await engine.deleteFile(inputName);
+      await engine.deleteFile('extracted.wav');
+      return wavBuffer;
+    }
+    return bytes.buffer;
+  }
+
+  // Load file
+  function loadFile(file) {
+    if (!file) return;
+    rawFile = file;
+    fileName.textContent = file.name;
+
+    (async () => {
+      try {
+        const ac = getAudioCtx();
+        const decoded = await decodeFile(file);
+        audioBuffer = await ac.decodeAudioData(decoded.slice(0));
+        const dur = audioBuffer.duration;
+        fileMeta.textContent = `${fmtSize(file.size)} · ${fmt(dur)} · ${audioBuffer.sampleRate}Hz · ${audioBuffer.numberOfChannels}ch`;
+
+        selStart = 0;
+        selEnd = dur;
+        zoom = 1;
+
+        fileInfo.classList.add('show');
+        uploadArea.style.display = 'none';
+        waveformSection.classList.add('show');
+        controls.classList.add('show');
+
+        enableButtons(true);
+        computeWaveform();
+        drawWaveform();
+        updateSelection();
+        updateInputs();
+        statusText.classList.remove('show');
+        trackToolEvent('file_selected', {
+          file_type: file.type.startsWith('video/') ? 'video' : 'audio'
+        });
+      } catch (err) {
+        trackToolEvent('tool_error', { error_type: 'media_decode_failed' });
+        alert('Unable to read the audio or video file: ' + err.message);
+        statusText.classList.remove('show');
+      }
+    })();
+  }
+
+  // Remove file
+  function removeFile() {
+    stopPlayback();
+    audioBuffer = null;
+    rawFile = null;
+    waveformData = null;
+    selStart = 0;
+    selEnd = 0;
+    segments = [];
+    segIdCounter = 0;
+
+    fileInfo.classList.remove('show');
+    waveformSection.classList.remove('show');
+    controls.classList.remove('show');
+    segmentsSection.classList.remove('show');
+    uploadArea.style.display = '';
+    fileInput.value = '';
+    enableButtons(false);
+  }
+
+  function enableButtons(on) {
+    btnPlayFull.disabled = !on;
+    btnPlaySelection.disabled = !on;
+    btnStop.disabled = !on;
+    btnReset.disabled = !on;
+    btnExport.disabled = !on;
+    btnExportWav.disabled = !on;
+    btnExportM4r.disabled = !on;
+    btnAddSegment.disabled = !on;
+    btnPreviewAll.disabled = !on;
+  }
+
+  // Compute waveform data
+  function computeWaveform() {
+    if (!audioBuffer) return;
+    const raw = audioBuffer.getChannelData(0);
+    const samples = 2000;
+    const blockSize = Math.floor(raw.length / samples);
+    waveformData = new Float32Array(samples);
+    for (let i = 0; i < samples; i++) {
+      let sum = 0;
+      const start = i * blockSize;
+      for (let j = 0; j < blockSize; j++) {
+        sum += Math.abs(raw[start + j]);
+      }
+      waveformData[i] = sum / blockSize;
+    }
+  }
+
+  // Draw waveform
+  function drawWaveform() {
+    if (!waveformData || !audioBuffer) return;
+
+    const dpr = window.devicePixelRatio || 1;
+    const wrapperWidth = Math.max(waveformScroll.clientWidth * zoom, waveformScroll.clientWidth);
+    const wrapperHeight = 160;
+
+    waveformWrapper.style.width = wrapperWidth + 'px';
+    canvas.width = wrapperWidth * dpr;
+    canvas.height = wrapperHeight * dpr;
+    canvas.style.width = wrapperWidth + 'px';
+    canvas.style.height = wrapperHeight + 'px';
+    ctx.scale(dpr, dpr);
+
+    const w = wrapperWidth;
+    const h = wrapperHeight;
+    const len = waveformData.length;
+
+    // Background
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, w, h);
+
+    // Find max for normalization
+    let maxVal = 0;
+    for (let i = 0; i < len; i++) {
+      if (waveformData[i] > maxVal) maxVal = waveformData[i];
+    }
+    if (maxVal === 0) maxVal = 1;
+
+    // Draw bars
+    const barWidth = w / len;
+    const mid = h / 2;
+
+    for (let i = 0; i < len; i++) {
+      const v = waveformData[i] / maxVal;
+      const barH = v * (h * 0.85);
+      const x = i * barWidth;
+      const t = i / len;
+      const time = t * audioBuffer.duration;
+
+      // Color based on selection
+      if (time >= selStart && time <= selEnd) {
+        const grad = ctx.createLinearGradient(0, mid - barH / 2, 0, mid + barH / 2);
+        grad.addColorStop(0, '#818cf8');
+        grad.addColorStop(1, '#6366f1');
+        ctx.fillStyle = grad;
+      } else {
+        ctx.fillStyle = '#c5cad6';
+      }
+
+      ctx.fillRect(x, mid - barH / 2, Math.max(barWidth - 0.5, 0.5), barH);
+    }
+
+    // Center line
+    ctx.strokeStyle = '#e0e4ec';
+    ctx.lineWidth = 0.5;
+    ctx.beginPath();
+    ctx.moveTo(0, mid);
+    ctx.lineTo(w, mid);
+    ctx.stroke();
+
+    // Time markers
+    const dur = audioBuffer.duration;
+    const step = dur > 300 ? 60 : dur > 60 ? 10 : dur > 10 ? 5 : 1;
+    ctx.fillStyle = '#aaa';
+    ctx.font = '10px sans-serif';
+    ctx.textAlign = 'center';
+    for (let t = 0; t <= dur; t += step) {
+      const x = (t / dur) * w;
+      ctx.fillRect(x, 0, 0.5, 8);
+      ctx.fillText(fmt(t), x, 18);
+    }
+
+    // Draw saved segments overlay
+    drawSegmentsOnWaveform(w, h, dur);
+  }
+
+  // Update selection visuals
+  function updateSelection() {
+    if (!audioBuffer) return;
+    const dur = audioBuffer.duration;
+    const w = waveformWrapper.clientWidth;
+
+    const left = (selStart / dur) * w;
+    const right = (selEnd / dur) * w;
+
+    selectionOverlay.style.left = left + 'px';
+    selectionOverlay.style.width = (right - left) + 'px';
+    selectionOverlay.classList.add('show');
+
+    handleStart.style.left = (left - 6) + 'px';
+    handleStart.classList.add('show');
+    handleEnd.style.left = (right - 6) + 'px';
+    handleEnd.classList.add('show');
+
+    timeStartLabel.textContent = fmt(selStart);
+    timeEndLabel.textContent = fmt(selEnd);
+
+    drawWaveform();
+  }
+
+  function updateInputs() {
+    if (!audioBuffer) return;
+    inputStart.value = fmt(selStart);
+    inputEnd.value = fmt(selEnd);
+    const d = selEnd - selStart;
+    durationBadge.textContent = 'Duration: ' + fmt(d);
+  }
+
+  // --- Segments functions ---
+
+  function drawSegmentsOnWaveform(w, h, dur) {
+    if (segments.length === 0) return;
+    segments.forEach((seg, idx) => {
+      const x1 = (seg.start / dur) * w;
+      const x2 = (seg.end / dur) * w;
+      // Semi-transparent green overlay
+      ctx.fillStyle = 'rgba(34, 197, 94, 0.15)';
+      ctx.fillRect(x1, 0, x2 - x1, h);
+      // Top border
+      ctx.fillStyle = 'rgba(22, 163, 74, 0.5)';
+      ctx.fillRect(x1, 0, x2 - x1, 2);
+      ctx.fillRect(x1, h - 2, x2 - x1, 2);
+      // Number label
+      const labelX = (x1 + x2) / 2;
+      ctx.fillStyle = 'rgba(255,255,255,0.85)';
+      const labelW = 22;
+      ctx.fillRect(labelX - labelW / 2, 4, labelW, 18);
+      ctx.fillStyle = '#16a34a';
+      ctx.font = 'bold 11px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('#' + (idx + 1), labelX, 17);
+    });
+  }
+
+  function addSegment() {
+    if (!audioBuffer) return;
+    const dur = selEnd - selStart;
+    if (dur < 0.01) { alert('Please select a valid range first'); return; }
+    const defaults = getGlobalFadeSettings();
+    segments.push({ id: ++segIdCounter, start: selStart, end: selEnd, ...defaults });
+    renderSegmentList();
+    drawWaveform();
+    updateSelection();
+  }
+
+  function removeSegment(id) {
+    segments = segments.filter(s => s.id !== id);
+    renderSegmentList();
+    drawWaveform();
+    updateSelection();
+  }
+
+  function renderSegmentList() {
+    if (segments.length === 0) {
+      segmentsSection.classList.remove('show');
+      return;
+    }
+    segmentsSection.classList.add('show');
+
+    segmentList.innerHTML = '';
+    segments.forEach((seg, idx) => {
+      const dur = seg.end - seg.start;
+      const el = document.createElement('div');
+      el.className = 'segment-item';
+      el.draggable = true;
+      el.dataset.idx = idx;
+      el.innerHTML = `
+        <div class="segment-main">
+          <span class="segment-number">#${idx + 1}</span>
+          <span class="segment-times">${fmt(seg.start)} → ${fmt(seg.end)}</span>
+          <span class="segment-duration">(${fmt(dur)})</span>
+          <span class="segment-actions">
+            <button title="Preview this segment" class="seg-play">▶</button>
+            <button title="Delete this segment" class="seg-delete">✕</button>
+          </span>
+        </div>
+        <div class="segment-effects">
+          <div class="segment-fade-control seg-fade-in-control"><label class="segment-fade-toggle" for="segFadeIn${seg.id}"><input type="checkbox" id="segFadeIn${seg.id}" class="seg-fade-in" ${seg.fadeIn ? 'checked' : ''}><span>Fade in</span></label><span class="segment-fade-settings"><input type="number" class="segment-fade-duration seg-fade-in-duration" min="0.1" max="10" step="0.1" value="${seg.fadeInDuration}" ${seg.fadeIn ? '' : 'disabled'} aria-label="Fade-in seconds"><span>sec</span></span></div>
+          <div class="segment-fade-control seg-fade-out-control"><label class="segment-fade-toggle" for="segFadeOut${seg.id}"><input type="checkbox" id="segFadeOut${seg.id}" class="seg-fade-out" ${seg.fadeOut ? 'checked' : ''}><span>Fade out</span></label><span class="segment-fade-settings"><input type="number" class="segment-fade-duration seg-fade-out-duration" min="0.1" max="10" step="0.1" value="${seg.fadeOutDuration}" ${seg.fadeOut ? '' : 'disabled'} aria-label="Fade-out seconds"><span>sec</span></span></div>
+        </div>
+      `;
+
+      const fadeInToggle = el.querySelector('.seg-fade-in');
+      const fadeOutToggle = el.querySelector('.seg-fade-out');
+      const fadeInValue = el.querySelector('.seg-fade-in-duration');
+      const fadeOutValue = el.querySelector('.seg-fade-out-duration');
+      const fadeInControl = el.querySelector('.seg-fade-in-control');
+      const fadeOutControl = el.querySelector('.seg-fade-out-control');
+
+      function syncSegmentEffects() {
+        seg.fadeIn = fadeInToggle.checked;
+        seg.fadeOut = fadeOutToggle.checked;
+        fadeInValue.disabled = !seg.fadeIn;
+        fadeOutValue.disabled = !seg.fadeOut;
+        fadeInControl.classList.toggle('is-active', seg.fadeIn);
+        fadeOutControl.classList.toggle('is-active', seg.fadeOut);
+      }
+
+      fadeInToggle.addEventListener('change', syncSegmentEffects);
+      fadeOutToggle.addEventListener('change', syncSegmentEffects);
+      fadeInValue.addEventListener('change', () => { seg.fadeInDuration = clampFadeDuration(fadeInValue.value); fadeInValue.value = seg.fadeInDuration; });
+      fadeOutValue.addEventListener('change', () => { seg.fadeOutDuration = clampFadeDuration(fadeOutValue.value); fadeOutValue.value = seg.fadeOutDuration; });
+      el.querySelector('.segment-effects').addEventListener('click', e => e.stopPropagation());
+      el.querySelector('.segment-effects').addEventListener('mousedown', e => e.stopPropagation());
+      el.querySelector('.segment-effects').addEventListener('dragstart', e => { e.preventDefault(); e.stopPropagation(); });
+      syncSegmentEffects();
+
+      // Play single segment
+      el.querySelector('.seg-play').addEventListener('click', (e) => {
+        e.stopPropagation();
+        stopPlayback();
+        play(seg.start, seg.end, true, getSegmentFadeSettings(seg));
+      });
+
+      // Delete segment
+      el.querySelector('.seg-delete').addEventListener('click', (e) => {
+        e.stopPropagation();
+        removeSegment(seg.id);
+      });
+
+      // Click to edit (load into selStart/selEnd)
+      el.addEventListener('click', () => {
+        selStart = seg.start;
+        selEnd = seg.end;
+        updateSelection();
+        updateInputs();
+      });
+
+      // Drag and drop sorting
+      el.addEventListener('dragstart', (e) => {
+        e.dataTransfer.effectAllowed = 'move';
+        e.dataTransfer.setData('text/plain', idx);
+        el.classList.add('dragging');
+      });
+      el.addEventListener('dragend', () => { el.classList.remove('dragging'); });
+      el.addEventListener('dragover', (e) => { e.preventDefault(); e.dataTransfer.dropEffect = 'move'; el.classList.add('drag-over'); });
+      el.addEventListener('dragleave', () => { el.classList.remove('drag-over'); });
+      el.addEventListener('drop', (e) => {
+        e.preventDefault();
+        el.classList.remove('drag-over');
+        const fromIdx = parseInt(e.dataTransfer.getData('text/plain'));
+        const toIdx = idx;
+        if (fromIdx === toIdx) return;
+        const [moved] = segments.splice(fromIdx, 1);
+        segments.splice(toIdx, 0, moved);
+        renderSegmentList();
+        drawWaveform();
+        updateSelection();
+      });
+
+      segmentList.appendChild(el);
+    });
+
+    // Update total duration
+    const total = segments.reduce((acc, s) => acc + (s.end - s.start), 0);
+    segmentsTotal.textContent = fmt(total);
+  }
+
+  function playAllSegments() {
+    if (segments.length === 0) { alert('Please add segments first'); return; }
+    stopPlayback();
+    let idx = 0;
+    function playNext() {
+      if (idx >= segments.length) return;
+      const seg = segments[idx];
+      idx++;
+      const ac = getAudioCtx();
+      if (ac.state === 'suspended') ac.resume();
+      sourceNode = ac.createBufferSource();
+      sourceNode.buffer = audioBuffer;
+      connectSourceWithFade(sourceNode, ac, 0, seg.end - seg.start, seg.end - seg.start, getSegmentFadeSettings(seg));
+      sourceNode.start(0, seg.start, seg.end - seg.start);
+      playStartTime = ac.currentTime;
+      playOffset = seg.start;
+      playEnd = seg.end;
+      isPlaying = true;
+      playhead.classList.add('show');
+      animatePlayhead();
+      sourceNode.onended = () => {
+        isPlaying = false;
+        cancelAnimationFrame(animFrame);
+        playhead.classList.remove('show');
+        if (idx < segments.length) playNext();
+        else {
+          btnPreviewAll.textContent = '▶ Preview Merged';
+        }
+      };
+    }
+    btnPreviewAll.textContent = '⏸ Stop Preview';
+    playNext();
+  }
+
+  function buildMergedBuffer() {
+    const sampleRate = audioBuffer.sampleRate;
+    const numChannels = audioBuffer.numberOfChannels;
+    let totalSamples = 0;
+    const segInfos = segments.map(seg => {
+      const startSample = Math.floor(seg.start * sampleRate);
+      const endSample = Math.floor(seg.end * sampleRate);
+      const len = endSample - startSample;
+      totalSamples += len;
+      return { startSample, length: len, fadeSettings: getSegmentFadeSettings(seg) };
+    });
+    return { sampleRate, numChannels, totalSamples, segInfos };
+  }
+
+  function clampFadeDuration(value) {
+    return Math.max(0.1, Math.min(10, Number(value) || 1));
+  }
+
+  function getGlobalFadeSettings() {
+    return { fadeIn: fadeInEnabled.checked, fadeInDuration: clampFadeDuration(fadeInDuration.value), fadeOut: fadeOutEnabled.checked, fadeOutDuration: clampFadeDuration(fadeOutDuration.value) };
+  }
+
+  function getSegmentFadeSettings(seg) {
+    return { fadeIn: Boolean(seg.fadeIn), fadeInDuration: clampFadeDuration(seg.fadeInDuration), fadeOut: Boolean(seg.fadeOut), fadeOutDuration: clampFadeDuration(seg.fadeOutDuration) };
+  }
+
+  function applyFade(sample, index, totalSamples, sampleRate, settings = getGlobalFadeSettings()) {
+    return sample * fadeGainAt(index / sampleRate, totalSamples / sampleRate, settings);
+  }
+
+  function fadeGainAt(outputTime, totalDuration, settings = getGlobalFadeSettings()) {
+    let gain = 1;
+    const fadeInSeconds = settings.fadeIn ? Math.min(totalDuration, settings.fadeInDuration) : 0;
+    const fadeOutSeconds = settings.fadeOut ? Math.min(totalDuration, settings.fadeOutDuration) : 0;
+    if (fadeInSeconds > 0 && outputTime < fadeInSeconds) gain = Math.min(gain, outputTime / fadeInSeconds);
+    if (fadeOutSeconds > 0 && outputTime >= totalDuration - fadeOutSeconds) gain = Math.min(gain, (totalDuration - outputTime) / fadeOutSeconds);
+    return Math.max(0, gain);
+  }
+
+  function connectSourceWithFade(source, audioCtx, outputOffset, sourceDuration, totalDuration, settings = getGlobalFadeSettings()) {
+    if (settings.fadeIn || settings.fadeOut) {
+      const gainNode = audioCtx.createGain();
+      const curveLength = Math.max(2, Math.min(2048, Math.ceil(sourceDuration * 100)));
+      const curve = new Float32Array(curveLength);
+      for (let i = 0; i < curveLength; i++) {
+        curve[i] = fadeGainAt(outputOffset + (i / (curveLength - 1)) * sourceDuration, totalDuration, settings);
+      }
+      gainNode.gain.setValueCurveAtTime(curve, audioCtx.currentTime, sourceDuration);
+      source.connect(gainNode);
+      gainNode.connect(audioCtx.destination);
+    } else {
+      source.connect(audioCtx.destination);
+    }
+  }
+
+  async function exportMergedSegments(format) {
+    if (segments.length === 0) return;
+    const { sampleRate, numChannels, totalSamples, segInfos } = buildMergedBuffer();
+    if (totalSamples <= 0) { alert('Total segment duration is zero'); return; }
+
+    const btn = format === 'mp3' ? btnExport : btnExportWav;
+    btn.disabled = true;
+    progressBar.classList.add('show');
+    statusText.classList.add('show');
+    statusText.textContent = 'Merging segments...';
+    progressFill.style.width = '10%';
+
+    try {
+      if (format === 'mp3') {
+        // Build merged int16 arrays
+        const left = new Int16Array(totalSamples);
+        const srcL = audioBuffer.getChannelData(0);
+        let right = null;
+        let srcR = null;
+        if (numChannels >= 2) {
+          right = new Int16Array(totalSamples);
+          srcR = audioBuffer.getChannelData(1);
+        }
+
+        let offset = 0;
+        for (const si of segInfos) {
+          for (let i = 0; i < si.length; i++) {
+            const s = applyFade(srcL[si.startSample + i], i, si.length, sampleRate, si.fadeSettings);
+            left[offset] = s < 0 ? Math.max(-32768, s * 32768) : Math.min(32767, s * 32767);
+            if (right) {
+              const sr = applyFade(srcR[si.startSample + i], i, si.length, sampleRate, si.fadeSettings);
+              right[offset] = sr < 0 ? Math.max(-32768, sr * 32768) : Math.min(32767, sr * 32767);
+            }
+            offset++;
+          }
+        }
+
+        progressFill.style.width = '30%';
+        statusText.textContent = 'Encoding MP3...';
+
+        const mp3Data = await encodeMp3(left, right, numChannels, sampleRate, totalSamples);
+        progressFill.style.width = '90%';
+
+        const blob = new Blob(mp3Data, { type: 'https://storage.googleapis.com/upliftorch_tool/mp3-cutter/audio/mp3' });
+        downloadBlob(blob, 'mp3');
+      } else {
+        // WAV: build merged buffer using encodeWAV-style logic
+        const bitDepth = 16;
+        const bytesPerSample = bitDepth / 8;
+        const blockAlign = numChannels * bytesPerSample;
+        const dataLength = totalSamples * blockAlign;
+        const totalLength = 44 + dataLength;
+
+        const arrayBuffer = new ArrayBuffer(totalLength);
+        const view = new DataView(arrayBuffer);
+
+        function writeStr(off, str) {
+          for (let i = 0; i < str.length; i++) view.setUint8(off + i, str.charCodeAt(i));
+        }
+
+        writeStr(0, 'RIFF');
+        view.setUint32(4, totalLength - 8, true);
+        writeStr(8, 'WAVE');
+        writeStr(12, 'fmt ');
+        view.setUint32(16, 16, true);
+        view.setUint16(20, 1, true);
+        view.setUint16(22, numChannels, true);
+        view.setUint32(24, sampleRate, true);
+        view.setUint32(28, sampleRate * blockAlign, true);
+        view.setUint16(32, blockAlign, true);
+        view.setUint16(34, bitDepth, true);
+        writeStr(36, 'data');
+        view.setUint32(40, dataLength, true);
+
+        const channels = [];
+        for (let i = 0; i < numChannels; i++) channels.push(audioBuffer.getChannelData(i));
+
+        progressFill.style.width = '30%';
+        statusText.textContent = 'Encoding WAV...';
+
+        let byteOffset = 44;
+        for (const si of segInfos) {
+          for (let i = 0; i < si.length; i++) {
+            for (let ch = 0; ch < numChannels; ch++) {
+              let s = applyFade(channels[ch][si.startSample + i], i, si.length, sampleRate, si.fadeSettings);
+              s = Math.max(-1, Math.min(1, s));
+              view.setInt16(byteOffset, s < 0 ? s * 0x8000 : s * 0x7FFF, true);
+              byteOffset += 2;
+            }
+          }
+        }
+
+        progressFill.style.width = '90%';
+        const blob = new Blob([arrayBuffer], { type: 'https://storage.googleapis.com/upliftorch_tool/mp3-cutter/audio/wav' });
+        downloadBlob(blob, 'wav');
+      }
+
+      progressFill.style.width = '100%';
+      statusText.textContent = 'Export complete!';
+      setTimeout(() => {
+        progressBar.classList.remove('show');
+        statusText.classList.remove('show');
+        progressFill.style.width = '0%';
+
+      }, 1500);
+    } catch (err) {
+      trackToolEvent('tool_error', { error_type: 'export_failed', export_format: format });
+      alert('Export failed: ' + err.message);
+      progressBar.classList.remove('show');
+      statusText.classList.remove('show');
+    }
+    btn.disabled = false;
+  }
+
+  function downloadBlob(blob, ext, suffix = `merged_${segments.length}segs`) {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    const baseName = rawFile ? rawFile.name.replace(/\.[^.]+$/, '') : 'audio';
+    a.href = url;
+    a.download = `${baseName}_${suffix}.${ext}`;
+    a.click();
+    trackToolEvent('export_success', { export_format: ext });
+    setTimeout(() => URL.revokeObjectURL(url), 5000);
+  }
+
+  // Segment buttons
+  btnAddSegment.addEventListener('click', addSegment);
+  btnPreviewAll.addEventListener('click', () => {
+    if (isPlaying) { stopPlayback(); btnPreviewAll.textContent = '▶ Preview Merged'; return; }
+    playAllSegments();
+  });
+
+  // Hover cursor & tooltip elements
+  const hoverCursor = $('hoverCursor');
+  const timeTooltip = $('timeTooltip');
+  const selectionHint = $('selectionHint');
+  let newDragAnchor = 0; // anchor time for bidirectional new selection
+
+  // Mouse / Touch interaction on waveform
+  function getTimeFromX(clientX) {
+    const rect = waveformWrapper.getBoundingClientRect();
+    const x = clientX - rect.left + waveformScroll.scrollLeft;
+    const ratio = x / waveformWrapper.clientWidth;
+    return Math.max(0, Math.min(audioBuffer.duration, ratio * audioBuffer.duration));
+  }
+
+  function getPxFromX(clientX) {
+    const rect = waveformWrapper.getBoundingClientRect();
+    return clientX - rect.left + waveformScroll.scrollLeft;
+  }
+
+  // Hover: show cursor line and time tooltip
+  waveformWrapper.addEventListener('mousemove', (e) => {
+    if (!audioBuffer || isDragging) return;
+    const px = getPxFromX(e.clientX);
+    const time = getTimeFromX(e.clientX);
+
+    hoverCursor.style.left = px + 'px';
+    hoverCursor.classList.add('show');
+
+    timeTooltip.textContent = fmt(time);
+    timeTooltip.style.left = px + 'px';
+    timeTooltip.classList.add('show');
+
+    // Change cursor based on position
+    const dur = audioBuffer.duration;
+    const w = waveformWrapper.clientWidth;
+    const pxPerSec = w / dur;
+    const startPx = selStart * pxPerSec;
+    const endPx = selEnd * pxPerSec;
+    const threshold = 10;
+    const isFullRange = selStart <= 0.01 && selEnd >= dur - 0.01;
+
+    if (!isFullRange && Math.abs(px - startPx) < threshold) {
+      waveformWrapper.style.cursor = 'ew-resize';
+    } else if (!isFullRange && Math.abs(px - endPx) < threshold) {
+      waveformWrapper.style.cursor = 'ew-resize';
+    } else if (!isFullRange && px > startPx && px < endPx) {
+      waveformWrapper.style.cursor = 'grab';
+    } else {
+      waveformWrapper.style.cursor = 'crosshair';
+    }
+  });
+
+  waveformWrapper.addEventListener('mouseleave', () => {
+    if (!isDragging) {
+      hoverCursor.classList.remove('show');
+      timeTooltip.classList.remove('show');
+    }
+  });
+
+  // Pointer down: determine drag mode
+  waveformWrapper.addEventListener('pointerdown', (e) => {
+    if (!audioBuffer) return;
+    e.preventDefault();
+    waveformWrapper.setPointerCapture?.(e.pointerId);
+    const time = getTimeFromX(e.clientX);
+    const dur = audioBuffer.duration;
+    const w = waveformWrapper.clientWidth;
+    const pxPerSec = w / dur;
+    const startPx = selStart * pxPerSec;
+    const endPx = selEnd * pxPerSec;
+    const px = getPxFromX(e.clientX);
+    const threshold = 10;
+    const isFullRange = selStart <= 0.01 && selEnd >= dur - 0.01;
+
+    if (!isFullRange && Math.abs(px - startPx) < threshold) {
+      isDragging = 'start';
+    } else if (!isFullRange && Math.abs(px - endPx) < threshold) {
+      isDragging = 'end';
+    } else if (!isFullRange && px > startPx + threshold && px < endPx - threshold) {
+      isDragging = 'selection';
+      dragStartX = e.clientX;
+      dragSelStartOrig = selStart;
+      dragSelEndOrig = selEnd;
+      waveformWrapper.style.cursor = 'grabbing';
+    } else {
+      // New selection: bidirectional drag from anchor point
+      isDragging = 'new';
+      newDragAnchor = time;
+      selStart = time;
+      selEnd = time;
+    }
+
+    // Hide hover cursor during drag (selection overlay provides feedback)
+    hoverCursor.classList.remove('show');
+
+    document.addEventListener('pointermove', onPointerMove);
+    document.addEventListener('pointerup', onPointerUp);
+    document.addEventListener('pointercancel', onPointerUp);
+  });
+
+  function onPointerMove(e) {
+    if (!isDragging || !audioBuffer) return;
+    const time = getTimeFromX(e.clientX);
+    const px = getPxFromX(e.clientX);
+
+    // Update tooltip during drag
+    timeTooltip.textContent = fmt(time);
+    timeTooltip.style.left = px + 'px';
+    timeTooltip.classList.add('show');
+
+    if (isDragging === 'start') {
+      selStart = Math.min(time, selEnd - 0.01);
+      selStart = Math.max(0, selStart);
+    } else if (isDragging === 'end') {
+      selEnd = Math.max(time, selStart + 0.01);
+      selEnd = Math.min(audioBuffer.duration, selEnd);
+    } else if (isDragging === 'selection') {
+      const dx = e.clientX - dragStartX;
+      const dur = audioBuffer.duration;
+      const w = waveformWrapper.clientWidth;
+      const dt = (dx / w) * dur;
+      let newStart = dragSelStartOrig + dt;
+      let newEnd = dragSelEndOrig + dt;
+      const len = newEnd - newStart;
+      if (newStart < 0) { newStart = 0; newEnd = len; }
+      if (newEnd > dur) { newEnd = dur; newStart = dur - len; }
+      selStart = newStart;
+      selEnd = newEnd;
+    } else if (isDragging === 'new') {
+      // Bidirectional: compare to anchor
+      if (time >= newDragAnchor) {
+        selStart = newDragAnchor;
+        selEnd = Math.min(audioBuffer.duration, time);
+      } else {
+        selStart = Math.max(0, time);
+        selEnd = newDragAnchor;
+      }
+    }
+
+    updateSelection();
+    updateInputs();
+  }
+
+  function onPointerUp(e) {
+    const wasMode = isDragging;
+
+    if (wasMode === 'new' && selEnd - selStart < 0.01) {
+      // Single click without meaningful drag — place playhead / seek
+      const clickTime = getTimeFromX(e.clientX);
+      if (isPlaying) {
+        // Seek playback
+        stopPlayback();
+        play(clickTime, audioBuffer.duration);
+        btnPlayFull.textContent = '⏸ Pause';
+      }
+      // Restore full selection if it was full before
+      selStart = 0;
+      selEnd = audioBuffer.duration;
+      updateSelection();
+      updateInputs();
+    } else if (wasMode === 'new') {
+      // Fade out hint after first successful selection
+      if (selectionHint) selectionHint.style.opacity = '0';
+    }
+
+    isDragging = null;
+    waveformWrapper.style.cursor = 'crosshair';
+    timeTooltip.classList.remove('show');
+    document.removeEventListener('pointermove', onPointerMove);
+    document.removeEventListener('pointerup', onPointerUp);
+    document.removeEventListener('pointercancel', onPointerUp);
+    waveformWrapper.releasePointerCapture?.(e.pointerId);
+  }
+
+  // Input changes
+  inputStart.addEventListener('input', () => {
+    if (!audioBuffer) return;
+    let t = parseTime(inputStart.value);
+    t = Math.max(0, Math.min(t, selEnd - 0.01));
+    selStart = t;
+    updateSelection();
+    updateInputs();
+  });
+
+  inputEnd.addEventListener('input', () => {
+    if (!audioBuffer) return;
+    let t = parseTime(inputEnd.value);
+    t = Math.max(selStart + 0.01, Math.min(t, audioBuffer.duration));
+    selEnd = t;
+    updateSelection();
+    updateInputs();
+  });
+
+  // Playback
+  function play(start, end, applyEffects = false, settings = getGlobalFadeSettings()) {
+    stopPlayback();
+    const ac = getAudioCtx();
+    if (ac.state === 'suspended') ac.resume();
+
+    sourceNode = ac.createBufferSource();
+    sourceNode.buffer = audioBuffer;
+    if (applyEffects) {
+      connectSourceWithFade(sourceNode, ac, 0, end - start, end - start, settings);
+    } else {
+      sourceNode.connect(ac.destination);
+    }
+    sourceNode.start(0, start, end - start);
+    sourceNode.onended = () => {
+      isPlaying = false;
+      cancelAnimationFrame(animFrame);
+      playhead.classList.remove('show');
+      btnPlayFull.textContent = '▶ Play All';
+      btnPlaySelection.textContent = '▶ Preview Selection';
+    };
+
+    playStartTime = ac.currentTime;
+    playOffset = start;
+    playEnd = end;
+    isPlaying = true;
+
+    playhead.classList.add('show');
+    animatePlayhead();
+  }
+
+  function stopPlayback() {
+    if (sourceNode) {
+      try { sourceNode.stop(); } catch (_) {}
+      sourceNode = null;
+    }
+    isPlaying = false;
+    cancelAnimationFrame(animFrame);
+    playhead.classList.remove('show');
+    btnPlayFull.textContent = '▶ Play All';
+    btnPlaySelection.textContent = '▶ Preview Selection';
+    btnPreviewAll.textContent = '▶ Preview Merged';
+  }
+
+  function animatePlayhead() {
+    if (!isPlaying) return;
+    const ac = getAudioCtx();
+    const elapsed = ac.currentTime - playStartTime;
+    const currentTime = playOffset + elapsed;
+
+    if (currentTime >= playEnd) {
+      stopPlayback();
+      return;
+    }
+
+    const dur = audioBuffer.duration;
+    const w = waveformWrapper.clientWidth;
+    const x = (currentTime / dur) * w;
+    playhead.style.left = x + 'px';
+
+    timeCurrentLabel.textContent = fmt(currentTime);
+
+    animFrame = requestAnimationFrame(animatePlayhead);
+  }
+
+  // Buttons
+  btnPlayFull.addEventListener('click', () => {
+    if (isPlaying) { stopPlayback(); return; }
+    play(0, audioBuffer.duration);
+    btnPlayFull.textContent = '⏸ Pause';
+  });
+
+  btnPlaySelection.addEventListener('click', () => {
+    if (isPlaying) { stopPlayback(); return; }
+    play(selStart, selEnd, true);
+    btnPlaySelection.textContent = '⏸ Pause';
+  });
+
+  btnStop.addEventListener('click', stopPlayback);
+
+  btnReset.addEventListener('click', () => {
+    if (!audioBuffer) return;
+    selStart = 0;
+    selEnd = audioBuffer.duration;
+    updateSelection();
+    updateInputs();
+  });
+
+  // Zoom
+  function setZoom(z) {
+    zoom = Math.max(1, Math.min(z, 20));
+    zoomLevel.textContent = zoom.toFixed(1) + 'x';
+    drawWaveform();
+    updateSelection();
+  }
+
+  zoomIn.addEventListener('click', () => setZoom(zoom * 1.5));
+  zoomOut.addEventListener('click', () => setZoom(zoom / 1.5));
+  zoomFit.addEventListener('click', () => setZoom(1));
+
+  // Export as MP3
+  btnExport.addEventListener('click', async () => {
+    if (!audioBuffer) return;
+    if (segments.length > 0) { await exportMergedSegments('mp3'); return; }
+
+    const sampleRate = audioBuffer.sampleRate;
+    const channels = audioBuffer.numberOfChannels;
+    const startSample = Math.floor(selStart * sampleRate);
+    const endSample = Math.floor(selEnd * sampleRate);
+    const length = endSample - startSample;
+
+    if (length <= 0) {
+      alert('Please select a valid range first');
+      return;
+    }
+
+    btnExport.disabled = true;
+    progressBar.classList.add('show');
+    statusText.classList.add('show');
+    statusText.textContent = 'Extracting audio...';
+    progressFill.style.width = '10%';
+
+    try {
+      // Extract selected samples (convert float32 to int16)
+      const left = new Int16Array(length);
+      const srcL = audioBuffer.getChannelData(0);
+      for (let i = 0; i < length; i++) {
+        const s = applyFade(srcL[startSample + i], i, length, sampleRate);
+        left[i] = s < 0 ? Math.max(-32768, s * 32768) : Math.min(32767, s * 32767);
+      }
+
+      let right = null;
+      if (channels >= 2) {
+        right = new Int16Array(length);
+        const srcR = audioBuffer.getChannelData(1);
+        for (let i = 0; i < length; i++) {
+          const s = applyFade(srcR[startSample + i], i, length, sampleRate);
+          right[i] = s < 0 ? Math.max(-32768, s * 32768) : Math.min(32767, s * 32767);
+        }
+      }
+
+      progressFill.style.width = '30%';
+      statusText.textContent = 'Encoding MP3...';
+
+      // Encode MP3 using lamejs
+      const mp3Data = await encodeMp3(left, right, channels, sampleRate, length);
+
+      progressFill.style.width = '90%';
+
+      const blob = new Blob(mp3Data, { type: 'https://storage.googleapis.com/upliftorch_tool/mp3-cutter/audio/mp3' });
+
+      // Download
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      const baseName = rawFile ? rawFile.name.replace(/\.[^.]+$/, '') : 'audio';
+      a.href = url;
+      a.download = `${baseName}_cut_${fmt(selStart).replace(/:/g, '-')}_${fmt(selEnd).replace(/:/g, '-')}.mp3`;
+      a.click();
+
+      setTimeout(() => URL.revokeObjectURL(url), 5000);
+
+      progressFill.style.width = '100%';
+      statusText.textContent = 'Export complete!';
+
+      setTimeout(() => {
+        progressBar.classList.remove('show');
+        statusText.classList.remove('show');
+        progressFill.style.width = '0%';
+
+      }, 1500);
+    } catch (err) {
+      alert('Export failed: ' + err.message);
+      progressBar.classList.remove('show');
+      statusText.classList.remove('show');
+    }
+
+    btnExport.disabled = false;
+  });
+
+  // MP3 encoder using lamejs
+  async function encodeMp3(left, right, numChannels, sampleRate, totalSamples) {
+    const lameEncoder = await getLameJs();
+    return new Promise((resolve) => {
+      const mp3enc = new lameEncoder.Mp3Encoder(numChannels, sampleRate, 192);
+      const mp3Data = [];
+      const blockSize = 1152;
+
+      for (let i = 0; i < totalSamples; i += blockSize) {
+        const end = Math.min(i + blockSize, totalSamples);
+        const leftChunk = left.subarray(i, end);
+        let mp3buf;
+        if (numChannels === 1) {
+          mp3buf = mp3enc.encodeBuffer(leftChunk);
+        } else {
+          const rightChunk = right.subarray(i, end);
+          mp3buf = mp3enc.encodeBuffer(leftChunk, rightChunk);
+        }
+        if (mp3buf.length > 0) {
+          mp3Data.push(mp3buf);
+        }
+
+        // Update progress
+        const pct = 30 + (i / totalSamples) * 60;
+        progressFill.style.width = pct + '%';
+      }
+
+      const flush = mp3enc.flush();
+      if (flush.length > 0) {
+        mp3Data.push(flush);
+      }
+
+      resolve(mp3Data);
+    });
+  }
+
+  // WAV encoder
+  function encodeWAV(buffer, startSample, length) {
+    const numChannels = buffer.numberOfChannels;
+    const sampleRate = buffer.sampleRate;
+    const bitDepth = 16;
+    const bytesPerSample = bitDepth / 8;
+    const blockAlign = numChannels * bytesPerSample;
+    const dataLength = length * blockAlign;
+    const totalLength = 44 + dataLength;
+
+    const arrayBuffer = new ArrayBuffer(totalLength);
+    const view = new DataView(arrayBuffer);
+
+    function writeStr(offset, str) {
+      for (let i = 0; i < str.length; i++) view.setUint8(offset + i, str.charCodeAt(i));
+    }
+
+    writeStr(0, 'RIFF');
+    view.setUint32(4, totalLength - 8, true);
+    writeStr(8, 'WAVE');
+    writeStr(12, 'fmt ');
+    view.setUint32(16, 16, true);
+    view.setUint16(20, 1, true);
+    view.setUint16(22, numChannels, true);
+    view.setUint32(24, sampleRate, true);
+    view.setUint32(28, sampleRate * blockAlign, true);
+    view.setUint16(32, blockAlign, true);
+    view.setUint16(34, bitDepth, true);
+    writeStr(36, 'data');
+    view.setUint32(40, dataLength, true);
+
+    const channels = [];
+    for (let i = 0; i < numChannels; i++) channels.push(buffer.getChannelData(i));
+
+    let offset = 44;
+    for (let i = 0; i < length; i++) {
+      for (let ch = 0; ch < numChannels; ch++) {
+        let s = applyFade(channels[ch][startSample + i], i, length, sampleRate);
+        s = Math.max(-1, Math.min(1, s));
+        view.setInt16(offset, s < 0 ? s * 0x8000 : s * 0x7FFF, true);
+        offset += 2;
+      }
+    }
+
+    return new Blob([arrayBuffer], { type: 'https://storage.googleapis.com/upliftorch_tool/mp3-cutter/audio/wav' });
+  }
+
+  // Export WAV
+  btnExportWav.addEventListener('click', async () => {
+    if (!audioBuffer) return;
+    if (segments.length > 0) { await exportMergedSegments('wav'); return; }
+
+    const sampleRate = audioBuffer.sampleRate;
+    const startSample = Math.floor(selStart * sampleRate);
+    const endSample = Math.floor(selEnd * sampleRate);
+    const length = endSample - startSample;
+
+    if (length <= 0) {
+      alert('Please select a valid range first');
+      return;
+    }
+
+    btnExportWav.disabled = true;
+    progressBar.classList.add('show');
+    statusText.classList.add('show');
+    statusText.textContent = 'Encoding WAV...';
+    progressFill.style.width = '50%';
+
+    try {
+      const blob = encodeWAV(audioBuffer, startSample, length);
+
+      progressFill.style.width = '90%';
+
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      const baseName = rawFile ? rawFile.name.replace(/\.[^.]+$/, '') : 'audio';
+      a.href = url;
+      a.download = `${baseName}_cut_${fmt(selStart).replace(/:/g, '-')}_${fmt(selEnd).replace(/:/g, '-')}.wav`;
+      a.click();
+      trackToolEvent('export_success', { export_format: 'wav' });
+
+      setTimeout(() => URL.revokeObjectURL(url), 5000);
+
+      progressFill.style.width = '100%';
+      statusText.textContent = 'Export complete!';
+
+      setTimeout(() => {
+        progressBar.classList.remove('show');
+        statusText.classList.remove('show');
+        progressFill.style.width = '0%';
+
+      }, 1500);
+    } catch (err) {
+      trackToolEvent('tool_error', { error_type: 'export_failed', export_format: 'wav' });
+      alert('Export failed: ' + err.message);
+      progressBar.classList.remove('show');
+      statusText.classList.remove('show');
+    }
+
+    btnExportWav.disabled = false;
+  });
+
+  btnExportM4r.addEventListener('click', async () => {
+    if (!audioBuffer) return;
+    const sampleRate = audioBuffer.sampleRate;
+    const startSample = Math.floor(selStart * sampleRate);
+    const length = Math.floor((selEnd - selStart) * sampleRate);
+    if (length <= 0) { alert('Select a valid range first'); return; }
+    if (length / sampleRate > 30) { alert('iPhone ringtones can be up to 30 seconds. Shorten the selection first.'); return; }
+    btnExportM4r.disabled = true;
+    progressBar.classList.add('show');
+    statusText.classList.add('show');
+    statusText.textContent = 'Creating the M4R ringtone...';
+    try {
+      const wavBlob = encodeWAV(audioBuffer, startSample, length);
+      const engine = await getFFmpeg();
+      await engine.writeFile('ringtone.wav', new Uint8Array(await wavBlob.arrayBuffer()));
+      await engine.exec(['-i', 'ringtone.wav', '-c:a', 'aac', '-b:a', '192k', '-movflags', '+faststart', '-f', 'ipod', 'ringtone.m4r']);
+      const result = await engine.readFile('ringtone.m4r');
+      await engine.deleteFile('ringtone.wav');
+      await engine.deleteFile('ringtone.m4r');
+      downloadBlob(new Blob([result.buffer], { type: 'https://storage.googleapis.com/upliftorch_tool/mp3-cutter/audio/mp4' }), 'm4r', 'ringtone');
+      progressFill.style.width = '100%';
+      statusText.textContent = 'M4R ringtone export complete';
+    } catch (err) {
+      trackToolEvent('tool_error', { error_type: 'export_failed', export_format: 'm4r' });
+      alert('M4R export failed: ' + err.message);
+      progressBar.classList.remove('show');
+      statusText.classList.remove('show');
+    }
+    btnExportM4r.disabled = false;
+  });
+
+  // File input
+  fileInput.addEventListener('change', (e) => {
+    if (e.target.files[0]) loadFile(e.target.files[0]);
+  });
+
+  // Drag and drop
+  uploadArea.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    uploadArea.classList.add('dragover');
+  });
+
+  uploadArea.addEventListener('dragleave', () => {
+    uploadArea.classList.remove('dragover');
+  });
+
+  uploadArea.addEventListener('drop', (e) => {
+    e.preventDefault();
+    uploadArea.classList.remove('dragover');
+    if (e.dataTransfer.files[0]) loadFile(e.dataTransfer.files[0]);
+  });
+
+  btnRemove.addEventListener('click', removeFile);
+
+  // Keyboard shortcuts
+  document.addEventListener('keydown', (e) => {
+    if (e.target.tagName === 'INPUT') return;
+
+    if (e.code === 'Space') {
+      e.preventDefault();
+      if (isPlaying) stopPlayback();
+      else if (audioBuffer) {
+        play(0, audioBuffer.duration);
+        btnPlayFull.textContent = '⏸ Pause';
+      }
+    } else if (e.key === 's' || e.key === 'S') {
+      e.preventDefault();
+      if (isPlaying) stopPlayback();
+      else if (audioBuffer) {
+        play(selStart, selEnd, true);
+        btnPlaySelection.textContent = '⏸ Pause';
+      }
+    } else if (e.key === 'a' || e.key === 'A') {
+      e.preventDefault();
+      if (audioBuffer) addSegment();
+    } else if (e.key === 'r' || e.key === 'R') {
+      e.preventDefault();
+      btnReset.click();
+    }
+  });
+
+  // Resize handler
+  window.addEventListener('resize', () => {
+    if (audioBuffer) {
+      drawWaveform();
+      updateSelection();
+    }
+  });
+})();
+</script>
+    
+<script>document.querySelectorAll(".current-year").forEach(function (el) { el.textContent = new Date().getFullYear(); });</script>
+
+<footer class="open-source-attribution" style="padding:24px;text-align:center"><a href="https://upliftorch.com/">Upliftorch</a> · <a href="https://upliftorch.com/tools/mp3-cutter/">Official demo / 線上工具</a></footer>
+</body>
+</html>

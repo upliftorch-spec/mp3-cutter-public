@@ -1120,7 +1120,7 @@ canvas#waveform {
 
   <!-- Upload -->
   <div class="upload-area" id="uploadArea">
-    <input type="file" id="fileInput" accept="https://storage.googleapis.com/upliftorch_tool/mp3-cutter/audio/*,video/*">
+    <input type="file" id="fileInput" accept="audio/*,video/*">
     <span class="upload-icon">🎵</span>
     <div class="upload-text">點擊或拖曳音訊檔案到此處</div>
     <div class="upload-hint">支援音訊與影片檔案，影片會在本機擷取音軌</div>
@@ -2073,7 +2073,7 @@ canvas#waveform {
         const mp3Data = await encodeMp3(left, right, numChannels, sampleRate, totalSamples);
         progressFill.style.width = '90%';
 
-        const blob = new Blob(mp3Data, { type: 'https://storage.googleapis.com/upliftorch_tool/mp3-cutter/audio/mp3' });
+        const blob = new Blob(mp3Data, { type: 'audio/mp3' });
         downloadBlob(blob, 'mp3');
       } else {
         // WAV: build merged buffer using encodeWAV-style logic
@@ -2123,7 +2123,7 @@ canvas#waveform {
         }
 
         progressFill.style.width = '90%';
-        const blob = new Blob([arrayBuffer], { type: 'https://storage.googleapis.com/upliftorch_tool/mp3-cutter/audio/wav' });
+        const blob = new Blob([arrayBuffer], { type: 'audio/wav' });
         downloadBlob(blob, 'wav');
       }
 
@@ -2503,7 +2503,7 @@ canvas#waveform {
 
       progressFill.style.width = '90%';
 
-      const blob = new Blob(mp3Data, { type: 'https://storage.googleapis.com/upliftorch_tool/mp3-cutter/audio/mp3' });
+      const blob = new Blob(mp3Data, { type: 'audio/mp3' });
 
       // Download
       const url = URL.createObjectURL(blob);
@@ -2613,7 +2613,7 @@ canvas#waveform {
       }
     }
 
-    return new Blob([arrayBuffer], { type: 'https://storage.googleapis.com/upliftorch_tool/mp3-cutter/audio/wav' });
+    return new Blob([arrayBuffer], { type: 'audio/wav' });
   }
 
   // Export WAV
@@ -2689,7 +2689,7 @@ canvas#waveform {
       const result = await engine.readFile('ringtone.m4r');
       await engine.deleteFile('ringtone.wav');
       await engine.deleteFile('ringtone.m4r');
-      downloadBlob(new Blob([result.buffer], { type: 'https://storage.googleapis.com/upliftorch_tool/mp3-cutter/audio/mp4' }), 'm4r', 'ringtone');
+      downloadBlob(new Blob([result.buffer], { type: 'audio/mp4' }), 'm4r', 'ringtone');
       progressFill.style.width = '100%';
       statusText.textContent = 'M4R 鈴聲匯出完成';
     } catch (err) {

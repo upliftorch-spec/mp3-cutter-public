@@ -921,7 +921,7 @@ canvas#waveform {
 
   <!-- Upload -->
   <div class="upload-area" id="uploadArea">
-    <input type="file" id="fileInput" accept="https://storage.googleapis.com/upliftorch_tool/mp3-cutter/audio/*,video/*">
+    <input type="file" id="fileInput" accept="audio/*,video/*">
     <span class="upload-icon">🎵</span>
     <div class="upload-text">Click or drag an audio file here</div>
     <div class="upload-hint">Supports audio and video files; video audio is extracted locally</div>
@@ -1421,11 +1421,9 @@ canvas#waveform {
         updateSelection();
         updateInputs();
         statusText.classList.remove('show');
-        trackToolEvent('file_selected', {
-          file_type: file.type.startsWith('video/') ? 'video' : 'audio'
-        });
+        ;
       } catch (err) {
-        trackToolEvent('tool_error', { error_type: 'media_decode_failed' });
+        ;
         alert('Unable to read the audio or video file: ' + err.message);
         statusText.classList.remove('show');
       }
@@ -1873,7 +1871,7 @@ canvas#waveform {
         const mp3Data = await encodeMp3(left, right, numChannels, sampleRate, totalSamples);
         progressFill.style.width = '90%';
 
-        const blob = new Blob(mp3Data, { type: 'https://storage.googleapis.com/upliftorch_tool/mp3-cutter/audio/mp3' });
+        const blob = new Blob(mp3Data, { type: 'audio/mp3' });
         downloadBlob(blob, 'mp3');
       } else {
         // WAV: build merged buffer using encodeWAV-style logic
@@ -1923,7 +1921,7 @@ canvas#waveform {
         }
 
         progressFill.style.width = '90%';
-        const blob = new Blob([arrayBuffer], { type: 'https://storage.googleapis.com/upliftorch_tool/mp3-cutter/audio/wav' });
+        const blob = new Blob([arrayBuffer], { type: 'audio/wav' });
         downloadBlob(blob, 'wav');
       }
 
@@ -1936,7 +1934,7 @@ canvas#waveform {
 
       }, 1500);
     } catch (err) {
-      trackToolEvent('tool_error', { error_type: 'export_failed', export_format: format });
+      ;
       alert('Export failed: ' + err.message);
       progressBar.classList.remove('show');
       statusText.classList.remove('show');
@@ -1951,7 +1949,7 @@ canvas#waveform {
     a.href = url;
     a.download = `${baseName}_${suffix}.${ext}`;
     a.click();
-    trackToolEvent('export_success', { export_format: ext });
+    ;
     setTimeout(() => URL.revokeObjectURL(url), 5000);
   }
 
@@ -2304,7 +2302,7 @@ canvas#waveform {
 
       progressFill.style.width = '90%';
 
-      const blob = new Blob(mp3Data, { type: 'https://storage.googleapis.com/upliftorch_tool/mp3-cutter/audio/mp3' });
+      const blob = new Blob(mp3Data, { type: 'audio/mp3' });
 
       // Download
       const url = URL.createObjectURL(blob);
@@ -2414,7 +2412,7 @@ canvas#waveform {
       }
     }
 
-    return new Blob([arrayBuffer], { type: 'https://storage.googleapis.com/upliftorch_tool/mp3-cutter/audio/wav' });
+    return new Blob([arrayBuffer], { type: 'audio/wav' });
   }
 
   // Export WAV
@@ -2449,7 +2447,7 @@ canvas#waveform {
       a.href = url;
       a.download = `${baseName}_cut_${fmt(selStart).replace(/:/g, '-')}_${fmt(selEnd).replace(/:/g, '-')}.wav`;
       a.click();
-      trackToolEvent('export_success', { export_format: 'wav' });
+      ;
 
       setTimeout(() => URL.revokeObjectURL(url), 5000);
 
@@ -2463,7 +2461,7 @@ canvas#waveform {
 
       }, 1500);
     } catch (err) {
-      trackToolEvent('tool_error', { error_type: 'export_failed', export_format: 'wav' });
+      ;
       alert('Export failed: ' + err.message);
       progressBar.classList.remove('show');
       statusText.classList.remove('show');
@@ -2491,11 +2489,11 @@ canvas#waveform {
       const result = await engine.readFile('ringtone.m4r');
       await engine.deleteFile('ringtone.wav');
       await engine.deleteFile('ringtone.m4r');
-      downloadBlob(new Blob([result.buffer], { type: 'https://storage.googleapis.com/upliftorch_tool/mp3-cutter/audio/mp4' }), 'm4r', 'ringtone');
+      downloadBlob(new Blob([result.buffer], { type: 'audio/mp4' }), 'm4r', 'ringtone');
       progressFill.style.width = '100%';
       statusText.textContent = 'M4R ringtone export complete';
     } catch (err) {
-      trackToolEvent('tool_error', { error_type: 'export_failed', export_format: 'm4r' });
+      ;
       alert('M4R export failed: ' + err.message);
       progressBar.classList.remove('show');
       statusText.classList.remove('show');
